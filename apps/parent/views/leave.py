@@ -24,7 +24,7 @@ def parent_leave_list_create(request):
         except Parent.DoesNotExist:
             return Response({"detail": "User has no associated parent record."}, status=404)
 
-        # Filter leaves by the parent's associated students
+       
         leaves = Leave.objects.filter(student_id__parent=parent)
         serializer = LeaveSerializer(leaves, many=True)
         return Response(serializer.data)

@@ -11,6 +11,7 @@ from apps.parent.models.parent import Class
 from rest_framework.permissions import AllowAny
 from django.db import IntegrityError
 
+
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny])  
 def parent_list(request):
@@ -127,3 +128,5 @@ def parent_student_info(request):
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)    
     return Response({'detail': 'Not authenticated'}, status=401)
+
+
