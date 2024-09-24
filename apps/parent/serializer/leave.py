@@ -29,9 +29,18 @@ class LeaveSerializer(serializers.ModelSerializer):
         return obj.student.class_id.class_name
     
     def validate(self, data):
-        if data['start_date'] > data['end_date']:
-            raise serializers.ValidationError("End date must be greater than or equal to start date.")
-        return data    
+        
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+
+        if start_date and end_date:
+            
+            if start_date > end_date:
+                raise serializers.ValidationError("Start date cannot be later than end date.")
+        else:
+            raise serializers.ValidationError("Both start date and end date must be provided.")
+
+        return data 
 
     def create(self, validated_data):
         

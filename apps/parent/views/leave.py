@@ -11,8 +11,21 @@ from apps.parent.models.parent import Parent
 
 @api_view(['GET', 'POST'])
 def parent_leave_list_create(request):
+    
+    
+    if not request.user.is_authenticated:
+        return Response({"detail": "Authentication credentials were not provided."}, status=401)
+
+    
     if request.method == 'GET':
-        leaves = Leave.objects.all()
+        
+        try:
+            parent = Parent.objects.get(user=request.user)
+        except Parent.DoesNotExist:
+            return Response({"detail": "User has no associated parent record."}, status=404)
+
+        # Filter leaves by the parent's associated students
+        leaves = Leave.objects.filter(student_id__parent=parent)
         serializer = LeaveSerializer(leaves, many=True)
         return Response(serializer.data)
 
@@ -45,7 +58,7 @@ def parent_leave_list_create(request):
             'student': request.data.get('student_id')
         }
         
-        print('validated data-----------',validated_data)
+       
 
         serializer = LeaveSerializer(data=validated_data)
         if serializer.is_valid():
