@@ -1,5 +1,5 @@
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from apps.parent.models.parent import Parent
@@ -8,8 +8,11 @@ from apps.student.models.student import Student
 from apps.student.serializer.student import StudentSerializer
 from django.contrib.auth.models import User
 from apps.parent.models.parent import Class
+from rest_framework.permissions import AllowAny
+from django.db import IntegrityError
 
 @api_view(['GET', 'POST'])
+@permission_classes([AllowAny])  
 def parent_list(request):
     if request.method == 'GET':
         parents = Parent.objects.all()
@@ -17,6 +20,8 @@ def parent_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        
+        
        
         parent_data = request.data.get('user')
         children_data = request.data.get('children')
@@ -24,15 +29,22 @@ def parent_list(request):
         address = request.data.get('address')
         phone_number = request.data.get('phone_number')
 
-       
-        parent_user = User.objects.create_user(
-            username=parent_data['username'],
-            password=parent_data['password'],
-            first_name=parent_data.get('first_name', ''),
-            last_name=parent_data.get('last_name', ''),
-            email=parent_data['email']
-        )
-        print("Created Parent User:", parent_user.username)
+        try:
+            parent_user = User.objects.create_user(
+                username=parent_data['username'],
+                password=parent_data['password'],
+                first_name=parent_data.get('first_name', ''),
+                last_name=parent_data.get('last_name', ''),
+                email=parent_data['email']
+            )
+            
+        except IntegrityError:
+           
+            return Response(
+                {"error": f"Username '{parent_data['username']}' already exists. Please choose a different username."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
 
        
         parent = Parent.objects.create(user=parent_user,address=address,phone_number=phone_number)

@@ -12,7 +12,7 @@ class ParentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Parent
-        fields = ['user', 'address', 'phone_number', 'gender', 'children']
+        fields = ['id','user', 'address', 'phone_number', 'gender', 'children']
 
     def create(self, validated_data):
         

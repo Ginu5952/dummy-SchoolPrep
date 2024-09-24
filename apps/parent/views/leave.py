@@ -27,7 +27,7 @@ def parent_leave_list_create(request):
             parent = Parent.objects.get(id=parent_id)
            
         except Parent.DoesNotExist:
-            return Response({'error': 'User has no parent associated.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Invalid parent_id.'}, status=status.HTTP_400_BAD_REQUEST)
 
         
         
