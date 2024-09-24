@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from apps.parent.models.parent import Class
 from rest_framework.permissions import AllowAny
 from django.db import IntegrityError
+from apps.parent.utils import send_verification_email
 
 
 @api_view(['GET', 'POST'])
@@ -36,7 +37,8 @@ def parent_list(request):
                 password=parent_data['password'],
                 first_name=parent_data.get('first_name', ''),
                 last_name=parent_data.get('last_name', ''),
-                email=parent_data['email']
+                email=parent_data['email'],
+                is_active=False  
             )
             
         except IntegrityError:
@@ -50,6 +52,9 @@ def parent_list(request):
        
         parent = Parent.objects.create(user=parent_user,address=address,phone_number=phone_number)
         print("Created Parent:", parent.user.get_full_name())
+        
+        send_verification_email(parent_user, request)
+
 
         students = []
 

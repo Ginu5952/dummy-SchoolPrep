@@ -6,6 +6,7 @@ from apps.student.serializer.student import StudentSerializer
 from django.contrib.auth.models import User
 
 
+
 class ParentSerializer(serializers.ModelSerializer):
     user = UserSerializer()  
     children = StudentSerializer(many=True)
@@ -28,9 +29,11 @@ class ParentSerializer(serializers.ModelSerializer):
             first_name=user_data.get('first_name', ''),
             last_name=user_data.get('last_name', ''),
             email=user_data.get('email', '')
+           
         )
        
-
+       
+        
         parent = Parent.objects.create(
         user=user,
         phone_number=validated_data.get('phone_number'),
@@ -60,5 +63,7 @@ class ParentSerializer(serializers.ModelSerializer):
                 username=child_data['username']
             )
           
-
+        
+      
+        
         return parent
