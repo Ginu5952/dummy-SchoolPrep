@@ -53,7 +53,7 @@ def parent_list(request):
         parent = Parent.objects.create(user=parent_user,address=address,phone_number=phone_number)
         print("Created Parent:", parent.user.get_full_name())
         
-        send_verification_email(parent_user, request)
+       # send_verification_email(parent_user, request)
 
 
         students = []

@@ -4,6 +4,7 @@ from apps.student.models.student import Student
 from apps.user.serializer.user import UserSerializer
 from apps.student.serializer.student import StudentSerializer
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 
 
@@ -21,7 +22,7 @@ class ParentSerializer(serializers.ModelSerializer):
 
         user_data = validated_data.pop('user')
         
-       
+   
       
         user = User.objects.create_user(
             username=user_data['username'],
@@ -29,10 +30,10 @@ class ParentSerializer(serializers.ModelSerializer):
             first_name=user_data.get('first_name', ''),
             last_name=user_data.get('last_name', ''),
             email=user_data.get('email', '')
-           
+        
         )
-       
-       
+    
+    
         
         parent = Parent.objects.create(
         user=user,
@@ -40,7 +41,7 @@ class ParentSerializer(serializers.ModelSerializer):
         address=validated_data.get('address'),
         gender=validated_data.get('gender')
         )
-      
+    
 
         children_data = validated_data.pop('children', [])
         
@@ -52,18 +53,20 @@ class ParentSerializer(serializers.ModelSerializer):
                 first_name=child_data.get('first_name', ''),
                 last_name=child_data.get('last_name', '')
             )
-           
+        
 
             Student.objects.create(
-               user=student_user,
+            user=student_user,
                 parent=parent,
                 age=child_data['age'],
                 class_id_id=child_data['class_id'].id, 
                 gender=child_data['gender'],
                 username=child_data['username']
             )
-          
         
-      
+        
+    
         
         return parent
+    
+    

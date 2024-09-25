@@ -1,12 +1,14 @@
 
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from apps.teacher.models.teacher import Teacher
 from apps.teacher.serializer.teacher import TeacherSerializer
+from rest_framework.permissions import AllowAny
 
 @api_view(['GET', 'POST'])
+@permission_classes([AllowAny])  
 def teacher_list(request):
     if request.method == 'GET':
         teachers = Teacher.objects.all()
