@@ -1,14 +1,16 @@
 from django.db import models
-from apps.parent.models.parent import Parent,Class
+
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 
 class Student(models.Model):
     
+  
+    
     user = models.OneToOneField("auth.User", on_delete=models.CASCADE) 
-    parent = models.ForeignKey(Parent, related_name='children', on_delete=models.CASCADE)
+    parent =  models.ForeignKey('parent.Parent', related_name='children', on_delete=models.CASCADE)  
     age = models.PositiveIntegerField()
-    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)  
+    class_id = models.ForeignKey('teacher.Class', on_delete=models.CASCADE) 
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')])
     username = models.CharField(max_length=30, unique=True, null=True, blank=True)
     password = models.CharField(max_length=128, null=True, blank=True)  

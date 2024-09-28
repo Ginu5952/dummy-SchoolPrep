@@ -1,2 +1,3 @@
-from .parent import Parent,Class
+from .parent import Parent
 from .leave import Leave
+

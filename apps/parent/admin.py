@@ -1,10 +1,8 @@
 from django.contrib import admin
-from .models.parent import Parent,Class
+from .models.parent import Parent
 from apps.parent.models.leave import Leave
 
 
-class ClassAdmin(admin.ModelAdmin):
-    list_display = ('id','class_name', 'academic_year_start', 'academic_year_end', 'grade')
 
 class ParentAdmin(admin.ModelAdmin):
     list_display = (
@@ -50,6 +48,8 @@ class LeaveAdmin(admin.ModelAdmin):
 
     def get_parent_name(self, obj):
         return f"{obj.parent.user.first_name} {obj.parent.user.last_name}"  
+    
+    
 
     def get_student_name(self, obj):
         return f"{obj.student.first_name} {obj.student.last_name}" 
@@ -60,9 +60,10 @@ class LeaveAdmin(admin.ModelAdmin):
     get_parent_name.short_description = 'Parent Name'
     get_student_name.short_description = 'Student Name'
     get_class_name.short_description = 'Class Name'
+    
 
 
     
-admin.site.register(Class,ClassAdmin)
+
 admin.site.register(Parent,ParentAdmin)
 admin.site.register(Leave,LeaveAdmin)

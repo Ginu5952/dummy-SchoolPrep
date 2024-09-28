@@ -1,9 +1,9 @@
 
 from rest_framework import serializers
 from apps.student.models.student import Student
-from apps.parent.serializer.classs import ClassSerializer
+from apps.teacher.serializer.classs import ClassSerializer
 from django.contrib.auth.models import User
-from apps.parent.models.parent import Class
+from apps.teacher.models.teacher import Class
 from django.contrib.auth.hashers import check_password
 
 class StudentSerializer(serializers.ModelSerializer):

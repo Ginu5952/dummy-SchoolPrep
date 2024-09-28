@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from apps.user.serializer.user import UserSerializer
 from apps.teacher.models.teacher import Teacher
-from apps.parent.models.parent import Class
-from apps.parent.serializer.classs import ClassSerializer
+from apps.teacher.models.teacher import Class
+from apps.teacher.serializer.classs import ClassSerializer
 
 class TeacherSerializer(serializers.ModelSerializer):
     
@@ -42,5 +42,5 @@ class TeacherSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['class_id'] = ClassSerializer(instance.class_id).data  # Expand class_id details
+        representation['class_id'] = ClassSerializer(instance.class_id).data  
         return representation

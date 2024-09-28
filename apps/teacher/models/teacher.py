@@ -1,11 +1,17 @@
 from django.contrib.auth.models import User
 from django.db import models
-from apps.parent.models.parent import Class
 from apps.student.models.student import Student
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
-
+    
+class Class(models.Model):
+    
+    class_name = models.CharField(max_length=100)
+    academic_year_start = models.IntegerField()
+    academic_year_end = models.IntegerField()
+    grade = models.IntegerField()
+    
 
 class Teacher(models.Model):
     
@@ -13,8 +19,12 @@ class Teacher(models.Model):
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)  
     gender = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')])
     
+    
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
+    
+
+
     
     
 class Attendance(models.Model):

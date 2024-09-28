@@ -11,15 +11,19 @@ class LeaveSerializer(serializers.ModelSerializer):
     parent_name = serializers.SerializerMethodField()
     student_name = serializers.SerializerMethodField()
     class_name = serializers.SerializerMethodField()
+    teacher = serializers.SerializerMethodField()
     
 
     class Meta:
         model = Leave
-        fields = ['id','parent','parent_name','student','student_name','class_name','leave_type', 'status', 'leave_description', 'start_date', 'end_date']
+        fields = ['id','parent','parent_name','student','student_name','class_name','leave_type', 'status', 'leave_description', 'start_date', 'end_date','teacher']
         read_only_fields = ['status'] 
         
     def get_parent_name(self, obj):
         return obj.parent.user.first_name + " " + obj.parent.user.last_name
+    
+    def get_teacher(self, obj):
+        return obj.teacher.user.first_name + " " + obj.teacher.user.last_name
 
     def get_student_name(self, obj):
         return obj.student.first_name + " " + obj.student.last_name  

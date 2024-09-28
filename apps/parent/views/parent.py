@@ -7,11 +7,13 @@ from apps.parent.serializer.parent import ParentSerializer
 from apps.student.models.student import Student
 from apps.student.serializer.student import StudentSerializer
 from django.contrib.auth.models import User
-from apps.parent.models.parent import Class
+from apps.teacher.models.teacher import Class
 from rest_framework.permissions import AllowAny
 from django.db import IntegrityError
 from apps.parent.utils import send_verification_email
 from django.db import transaction
+from django.core.mail import send_mail, BadHeaderError
+from smtplib import SMTPRecipientsRefused
 
 
 @api_view(['GET', 'POST'])
@@ -72,6 +74,24 @@ def parent_list(request):
                 print("Created Parent:", parent.user.get_full_name())
 
                 
+                
+                try:
+                    
+                    send_verification_email(parent_user, request)
+                    
+                except SMTPRecipientsRefused:
+                  
+                    return Response(
+                        {"error": f"The recipient email address '{parent_user.email}' is invalid. Please provide a valid email address."},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                except BadHeaderError:
+                    
+                    return Response({"error": "Invalid header found."}, status=status.HTTP_400_BAD_REQUEST)
+                except Exception as e:
+                    
+                    return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                
                 students = []
                 for child_data in children_data:
                     
@@ -111,7 +131,7 @@ def parent_list(request):
                         last_name=child_data.get('last_name', '')
                     )
 
-                    # Collect student details for the response
+                   
                     class_info = {
                         "id": student.class_id.id,
                         "class_name": student.class_id.class_name,

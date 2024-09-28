@@ -6,6 +6,7 @@ from apps.parent.models.leave import Leave
 from apps.parent.serializer.leave import LeaveSerializer
 from apps.student.models.student import Student
 from apps.parent.models.parent import Parent
+from apps.teacher.models.teacher import Teacher
 
 
 
@@ -33,6 +34,7 @@ def parent_leave_list_create(request):
        
         parent_id = request.data.get('parent_id')
         student_id = request.data.get('student_id')
+        teacher_id = request.data.get('teacher_id')
         
         print("Found Parent:", parent_id,student_id)
         
@@ -49,13 +51,20 @@ def parent_leave_list_create(request):
         except Student.DoesNotExist:
             return Response({'error': 'Student not found.'}, status=status.HTTP_400_BAD_REQUEST)
         
+        try:
+            teacher = Teacher.objects.get(id=teacher_id)
+        except Student.DoesNotExist:
+            return Response({'error': 'Teacher not found.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
         validated_data = {
             'leave_type': request.data.get('leave_type'),
             'leave_description': request.data.get('leave_description'),
             'start_date': request.data.get('start_date'),
             'end_date': request.data.get('end_date'),
             'parent': request.data.get('parent_id'),
-            'student': request.data.get('student_id')
+            'student': request.data.get('student_id'),
+            'teacher': request.data.get('teacher_id')
         }
         
        

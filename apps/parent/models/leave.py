@@ -1,6 +1,7 @@
 from django.db import models
 from apps.parent.models import Parent  
 from apps.student.models import Student 
+from apps.teacher.models import Teacher
 
 class Leave(models.Model):
     
@@ -23,6 +24,8 @@ class Leave(models.Model):
     leave_description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+   
 
     def __str__(self):
         return f"{self.student} - {self.leave_type} ({self.status})"

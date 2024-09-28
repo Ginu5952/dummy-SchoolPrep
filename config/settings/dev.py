@@ -9,7 +9,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     "default": {

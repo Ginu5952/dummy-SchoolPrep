@@ -1,8 +1,12 @@
 from django.contrib import admin
-from apps.teacher.models.teacher import Teacher,Attendance
+from apps.teacher.models.teacher import Teacher,Attendance,Class
 
 
 
+class ClassAdmin(admin.ModelAdmin):
+    list_display = ('id','class_name', 'academic_year_start', 'academic_year_end', 'grade')
+    
+    
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ('id','username', 'first_name', 'last_name', 'gender', 'class_name')
 
@@ -30,9 +34,10 @@ class AttendanceAdmin(admin.ModelAdmin):
     search_fields = ('student__first_name', 'student__last_name', 'teacher__first_name', 'teacher__last_name')
     
     def get_class_name(self, obj):
-        return obj.student.class_id.class_name  
+        return obj.teacher.class_id.class_name  
 
     get_class_name.short_description = 'Class Name' 
-    
+   
+admin.site.register(Class,ClassAdmin)    
 admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Attendance,AttendanceAdmin)
