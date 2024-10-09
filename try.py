@@ -72,3 +72,125 @@
 
 
 #pip install djangorestframework-simplejwt
+
+
+{
+    "class_name": "First Standard",
+    "academic_year": "2023-2024",
+    "grade": 1,
+    "timetable": [
+        {
+            "day": "Monday",
+            "schedule": [
+                {
+                    "subject": "Mathematics",
+                    "start_time": "09:00",
+                    "end_time": "10:00",
+                    "teacher": "molly"
+                },
+                {
+                    "subject": "Physics",
+                    "start_time": "10:15",
+                    "end_time": "11:15",
+                    "teacher": "molly"
+                }
+            ]
+        },
+        {
+            "day": "Tuesday",
+            "schedule": [
+                {
+                    "subject": "History",
+                    "start_time": "09:00",
+                    "end_time": "10:00",
+                    "teacher": "Ms. Sarah Lee"
+                },
+                {
+                    "subject": "English",
+                    "start_time": "10:15",
+                    "end_time": "11:15",
+                    "teacher": "Mr. Mark Thompson"
+                }
+            ]
+        },
+        {
+            "day": "Wednesday",
+            "schedule": [
+                {
+                    "subject": "Chemistry",
+                    "start_time": "09:00",
+                    "end_time": "10:00",
+                    "teacher": "Ms. Alice Brown"
+                },
+                {
+                    "subject": "Physical Education",
+                    "start_time": "10:15",
+                    "end_time": "11:15",
+                    "teacher": "Mr. David King"
+                }
+            ]
+        }
+       
+    ]
+}
+
+
+{
+    "class_name": "Second Standard",
+    "academic_year": "2001-2002",
+    "grade": 2,
+    "timetable": [
+        {
+            "day": "Monday",
+            "schedule": [
+                {
+                    "subject": "Mathematics",
+                    "start_time": "09:00",
+                    "end_time": "10:00",
+                    "teacher": "molly"
+                },
+                {
+                    "subject": "Physics",
+                    "start_time": "10:15",
+                    "end_time": "11:15",
+                    "teacher": "molly"
+                }
+            ]
+        },
+        {
+            "day": "Tuesday",
+            "schedule": [
+                {
+                    "subject": "History",
+                    "start_time": "09:00",
+                    "end_time": "10:00",
+                    "teacher": "Ms. Sarah Lee"
+                },
+                {
+                    "subject": "English",
+                    "start_time": "10:15",
+                    "end_time": "11:15",
+                    "teacher": "Mr. Mark Thompson"
+                }
+            ]
+        },
+        {
+            "day": "Wednesday",
+            "schedule": [
+                {
+                    "subject": "Chemistry",
+                    "start_time": "09:00",
+                    "end_time": "10:00",
+                    "teacher": "Ms. Alice Brown"
+                },
+                {
+                    "subject": "Physics",
+                    "start_time": "10:15",
+                    "end_time": "11:15",
+                    "teacher": "Mr. David King"
+                }
+            ]
+        }
+       
+    ]
+}

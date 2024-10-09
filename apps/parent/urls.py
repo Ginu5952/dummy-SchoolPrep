@@ -12,4 +12,5 @@ urlpatterns = [
     path('holiday/list/', views.holiday_list, name='holiday-list'),
     path('extracurricular/timetable/', views.extra_curricular_timetable, name='extra_curricular_timetable'), 
     path('verify-email/<str:uidb64>/<str:token>/', views.verify_email, name='verify-email'),
+    path('profile/', views.parent_profile, name='parent-profile'),
 ]    

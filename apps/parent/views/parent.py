@@ -14,6 +14,7 @@ from apps.parent.utils import send_verification_email
 from django.db import transaction
 from django.core.mail import send_mail, BadHeaderError
 from smtplib import SMTPRecipientsRefused
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['GET', 'POST'])
@@ -182,3 +183,13 @@ def parent_student_info(request):
     return Response({'detail': 'Not authenticated'}, status=401)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def parent_profile(request):
+    try:
+        
+        parent = Parent.objects.get(user=request.user)
+        serializer = ParentSerializer(parent)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Parent.DoesNotExist:
+        return Response({"detail": "Parent profile not found."}, status=status.HTTP_404_NOT_FOUND)

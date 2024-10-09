@@ -1,10 +1,15 @@
 from django.contrib import admin
 from apps.teacher.models.teacher import Teacher,Attendance,Class
+from apps.teacher.models.timetable import Timetable,Subject
+
+
+
 
 
 
 class ClassAdmin(admin.ModelAdmin):
     list_display = ('id','class_name', 'academic_year_start', 'academic_year_end', 'grade')
+    
     
     
 class TeacherAdmin(admin.ModelAdmin):
@@ -41,3 +46,5 @@ class AttendanceAdmin(admin.ModelAdmin):
 admin.site.register(Class,ClassAdmin)    
 admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Attendance,AttendanceAdmin)
+admin.site.register(Subject)
+

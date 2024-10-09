@@ -12,6 +12,9 @@ class Class(models.Model):
     academic_year_end = models.IntegerField()
     grade = models.IntegerField()
     
+    def __str__(self):
+        return self.class_name
+    
 
 class Teacher(models.Model):
     
